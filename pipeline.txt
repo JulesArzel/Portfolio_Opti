@@ -1,0 +1,13 @@
+📂 RL_Portfolio_Project/
+├── data/
+├── features/
+│   ├── markowitz.py
+│   └── regime.py
+├── env/
+│   └── portfolio_env.py
+├── models/
+│   └── rl_agent.py
+├── notebooks/
+│   └── 00_feature_engineering.ipynb
+│   └── 01_train_rl.ipynb
+└── backtests/
