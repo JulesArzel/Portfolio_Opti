@@ -20,8 +20,8 @@ Each part builds on the previous one, culminating in a dynamic portfolio agent t
 - **Black–Litterman**: Integrates investor views to adjust the prior equilibrium returns—though optional in this pipeline
 
 **Files/Modules**:  
-- `Labs/markowitz_blacklitterman.ipynb`  
-- `features/markowitz.py`, `features/bl.py`
+- `Labs/Markowitz_BlackLitterman.ipynb`  
+- `features/markowitz.py`
 
 ---
 
