@@ -8,17 +8,16 @@ def one_hot_encode(series, prefix):
     return pd.get_dummies(series, prefix=prefix)
 
 def add_technical_features(prices, returns, window=5):
-    
-    vol = returns.rolling(window).std()
+    vol = returns.rolling(window).std().shift(1)
     vol.columns = [f'vol_{col}' for col in vol.columns]
 
-    momentum = prices.pct_change(periods=window)
+    momentum = prices.pct_change(periods=window).shift(1)
     momentum.columns = [f'mom_{col}' for col in momentum.columns]
 
-    avg_return = returns.rolling(window).mean()
+    avg_return = returns.rolling(window).mean().shift(1)
     avg_return.columns = [f'avg_ret_{col}' for col in avg_return.columns]
 
-    zscore = (returns - returns.rolling(window).mean()) / returns.rolling(window).std()
+    zscore = ((returns - returns.rolling(window).mean()) / returns.rolling(window).std()).shift(1)
     zscore.columns = [f'zscore_{col}' for col in zscore.columns]
 
     return pd.concat([vol, momentum, avg_return, zscore], axis=1)
