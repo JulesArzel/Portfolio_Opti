@@ -63,7 +63,7 @@ Each part builds on the previous one, culminating in a dynamic portfolio agent t
 
 ---
 
-## 🔍 Theory Highlights
+## Theory Highlights
 
 - **Mean–Variance Optimization**: A foundational framework (Markowitz, 1952) balancing return and risk; the tangent portfolio maximizes Sharpe ratio.
 - **Black–Litterman**: Combines equilibrium market expectations with investor views for improved posterior estimates.
