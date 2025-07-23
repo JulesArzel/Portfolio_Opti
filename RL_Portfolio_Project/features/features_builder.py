@@ -25,7 +25,7 @@ def add_technical_features(prices, returns, window=5):
 
 def build_rl_features(tickers=['AAPL', 'XOM', 'JNJ', 'TSLA', 'F', 'MSFT'],
                       start_date='2020-01-01', end_date='2025-01-01',
-                      tech_window=5):
+                      tech_window=5, tech_feat = False):
     
     prices = get_data(tickers, start_date, end_date)
     returns = prices.pct_change().dropna()
@@ -37,9 +37,12 @@ def build_rl_features(tickers=['AAPL', 'XOM', 'JNJ', 'TSLA', 'F', 'MSFT'],
     hmm_ohe = one_hot_encode(hmm_regimes, prefix='hmm')
     pred_ohe = one_hot_encode(predicted_regimes, prefix='pred')
 
-    tech_features = add_technical_features(prices, returns, window=tech_window)
-
-    features_df = pd.concat([hmm_ohe, pred_ohe, markowitz_weights, tech_features], axis=1)
+    if tech_feat: 
+        tech_features = add_technical_features(prices, returns, window=tech_window)
+        features_df = pd.concat([hmm_ohe, pred_ohe, markowitz_weights, tech_features], axis=1)
+    else :
+        features_df = pd.concat([hmm_ohe, pred_ohe, markowitz_weights], axis=1)
+    
     features_df = features_df.dropna()
 
     returns_df = returns.loc[features_df.index]

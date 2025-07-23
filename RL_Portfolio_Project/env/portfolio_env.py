@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import gymnasium as gym
 from gymnasium import spaces
+from collections import deque
 
 class PortfolioEnv(gym.Env):
     """
@@ -18,6 +19,9 @@ class PortfolioEnv(gym.Env):
         assert features.shape[0] == returns.shape[0], "Feature and return data must align on time axis."
         assert features.index.equals(returns.index), "Feature and return index must match."
 
+        self.rewards_window = deque(maxlen=20)  
+        self.window_size = 20
+        self.risk_aversion = 0.1 
         self.features = features
         self.returns = returns
         self.initial_cash = initial_cash
@@ -70,7 +74,15 @@ class PortfolioEnv(gym.Env):
 
         terminated = self.current_step >= (self.T - 1)
         truncated = False
-        reward = portfolio_return
+        
+        self.rewards_window.append(portfolio_return)
+
+        if len(self.rewards_window) >= self.window_size:
+            sigma = np.std(self.rewards_window)
+        else:
+            sigma = 0.0
+
+        reward = portfolio_return - self.risk_aversion * sigma
 
         obs = self._get_observation()
         info = {
