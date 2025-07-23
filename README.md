@@ -16,7 +16,7 @@ Each part builds on the previous one, culminating in a dynamic portfolio agent t
 ## Lab Notebooks & Modules
 
 ### 1. Mean–Variance Optimization & Black–Litterman
-- **Markowitz**: Implements the tangent portfolio \( w^* \propto \Sigma^{-1}(\mu - r_f) \), allowing for unconstrained leverage/shorting.
+- **Markowitz**: Explores Mean-Variance theory (Min Variance Portfolio, CML, ...) Implements the tangent portfolio, allowing for unconstrained leverage/shorting.
 - **Black–Litterman**: Integrates investor views to adjust the prior equilibrium returns—though optional in this pipeline
 
 **Files/Modules**:  
