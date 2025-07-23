@@ -22,21 +22,19 @@ def get_markowitz_weights(prices: pd.DataFrame, risk_free_rate: float = 0.0) -> 
 
     for i in range(59, len(returns)):
         mu = mean_returns.iloc[i]
-        cov = cov_matrices.iloc[i * len(prices.columns):(i + 1) * len(prices.columns)]
-        cov_matrix = cov.values.reshape(len(prices.columns), len(prices.columns))
 
+        date = returns.index[i]
         try:
+            cov_matrix = cov_matrices.xs(date, level=0).values
             inv_cov = np.linalg.inv(cov_matrix)
-            ones = np.ones(len(mu))
             excess_returns = mu - risk_free_rate
-
             weights = inv_cov @ excess_returns
             weights /= np.sum(weights)
-
-        except np.linalg.LinAlgError:
-            weights = np.full(len(mu), 1 / len(mu))
+        except (KeyError, np.linalg.LinAlgError):
+            weights = np.full(len(mu), 1 / len(mu))  # fallback to equal weights
 
         weights_list.append(weights)
+
 
     aligned_index = returns.index[59:]
     weights_df = pd.DataFrame(weights_list, index=aligned_index, columns=prices.columns)

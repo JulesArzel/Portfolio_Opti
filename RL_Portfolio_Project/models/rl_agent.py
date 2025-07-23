@@ -19,28 +19,25 @@ def train_rl_agent(env, timesteps=100_000, verbose=1):
     model.learn(total_timesteps=timesteps)
     return model
 
-
 def evaluate_agent(model, env):
     """
-    Evaluates a trained agent on the environment.
-
-    Parameters:
-    - model: trained PPO model
-    - env: PortfolioEnv
+    Evaluate a trained RL agent in the portfolio environment.
 
     Returns:
-    - history: list of portfolio values over time
-    - info_list: list of info dicts from each step
+    - history: portfolio value over time
+    - info_list: list of step-level info dicts
     """
-    obs = env.reset()
+    obs, _ = env.reset()
     done = False
-    history = []
+    history = [env.portfolio_value]
     info_list = []
 
     while not done:
         action, _states = model.predict(obs)
-        obs, reward, done, info = env.step(action)
+        obs, reward, terminated, truncated, info = env.step(action)
+        done = terminated or truncated
         history.append(info['portfolio_value'])
         info_list.append(info)
 
     return history, info_list
+
