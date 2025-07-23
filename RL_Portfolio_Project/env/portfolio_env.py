@@ -5,10 +5,8 @@ from gymnasium import spaces
 from collections import deque
 
 class PortfolioEnv(gym.Env):
-    """
-    Custom Gymnasium environment for financial portfolio management.
-    The agent observes market features and allocates portfolio weights.
-    """
+    #Custom Gymnasium environment
+
     metadata = {'render_modes': ['human']}
 
     def __init__(self, features: pd.DataFrame, returns: pd.DataFrame, 

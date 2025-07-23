@@ -10,11 +10,10 @@ def train_rl_agent(env, timesteps=100_000, verbose=1):
     return model
 
 def evaluate_agent(model, env):
-    """
-    Returns:
-    - history: portfolio value over time
-    - info_list: list of step-level info dicts
-    """
+    #Returns:
+    #- history: portfolio value over time
+    #- info_list: list of step-level info dicts
+
     obs, _ = env.reset()
     done = False
     history = [env.portfolio_value]
