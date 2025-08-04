@@ -9,7 +9,7 @@ def get_hmm_regimes(prices: pd.DataFrame, n_states: int = 3) -> pd.Series:
     log_returns = np.log(prices / prices.shift(1)).dropna()
     X = log_returns.mean(axis=1).values.reshape(-1, 1)
 
-    model = GaussianHMM(n_components=n_states, covariance_type="full", n_iter=1000)
+    model = GaussianHMM(n_components=n_states, covariance_type="full", n_iter=1000, random_state=43)
     model.fit(X)
     hidden_states = model.predict(X)
 
@@ -40,7 +40,7 @@ def predict_future_regimes(prices: pd.DataFrame, n_states: int = 3) -> pd.Series
 
     X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, shuffle=False)
 
-    clf = XGBClassifier(use_label_encoder=False, eval_metric='mlogloss')
+    clf = XGBClassifier(use_label_encoder=False, eval_metric='mlogloss', random_state=43)
     clf.fit(X_train, y_train)
 
     y_pred = clf.predict(X_scaled)
