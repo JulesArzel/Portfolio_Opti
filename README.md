@@ -2,6 +2,24 @@
 
 ## Project Overview
 
+📂 RL_Portfolio_Project/
+├── data/
+│   ├── data.py
+├── features/
+│   ├── features_builder.py
+│   ├── markowitz.py
+│   └── regime.py
+├── env/
+│   └── portfolio_env.py
+├── models/
+│   └── rl_agent.py
+├── main.ipynb
+└── backtests/
+📂 Labs/
+├── Factor_Model.ipynb
+├── HMM_Ruptures_ML.ipynb
+└── Markowitz_BlackLitterman.ipynb
+
 This repository is a comprehensive exploration of **quantitative portfolio optimization**, blending classic financial theory with modern machine learning and reinforcement learning (RL). It follows a structured pipeline:
 
 1. **Markowitz Mean–Variance & Black–Litterman**  
